@@ -1,5 +1,6 @@
 {
 	"projectName" : "@uclapi/sdk",
 	"projectVersion" : "1.0.0",
-	"apiPackage" : "uclapi"
+	"apiPackage" : "uclapi",
+	"invokerPackage" : "uclapi"
 }
