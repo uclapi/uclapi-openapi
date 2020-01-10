@@ -22,10 +22,16 @@ jobs:
         cd ./@uclapi/sdk
         npm install
     - name: Build the packages for the folder
-      run: npm run build
+      run: |
+        cd ./@uclapi/sdk
+        npm run build
     - name: Run test on the packages
-      run: npm run test
+      run: |
+        cd ./@uclapi/sdk
+        npm run test
     - name: Publish package to npm registry
-      run: npm publish
+      run: |
+        cd ./@uclapi/sdk
+        npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
