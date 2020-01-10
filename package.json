@@ -1,0 +1,9 @@
+{
+  "name": "publish",
+  "version": "1.0.0",
+  "description": "install open api generator to publish",
+  "main": "lib/setup-node.js",
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^4.2.2"
+  },
+}
