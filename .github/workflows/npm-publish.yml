@@ -14,9 +14,9 @@ jobs:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
     - name: Install packages for generation
-      run: npm install
+      run: npm install -g @openapitools/openapi-generator-cli
     - name: Create open api generated folder
-      run: openapi-generator generate -i uclapi-v.0.0.1.yaml -g javascript -o ./@uclapi/sdk -c config.json
+      run: openapi-generator generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c npm-config.json
     - name: Install packages for the folder
       run: |
         cd ./@uclapi/sdk
@@ -26,4 +26,6 @@ jobs:
     - name: Run test on the packages
       run: npm run test
     - name: Publish package to npm registry
-      run: npm run publish
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
