@@ -10,4 +10,4 @@ Since this repo is set up to track the changes made in swagger it means that we 
 
 ## Current progress on auto updates
 
-N/A
+Node automatically builds when you update swagger but due to constraints of swagger you manually have to version the build in the config file and set shouldGenerate to true.
