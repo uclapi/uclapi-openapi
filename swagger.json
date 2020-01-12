@@ -87,7 +87,7 @@
         "name" : "start_datetime",
         "in" : "query",
         "description" : "Start datetime of the booking. Returns bookings with a start_datetime after the one supplied. Follows the ISO 8601 formatting standard.",
-        "required" : false,
+        "required" : true,
         "schema" : {
           "type" : "string"
         }
@@ -96,7 +96,7 @@
         "name" : "end_datetime",
         "in" : "query",
         "description" : "End datetime of the booking. Returns bookings with an end_datetime before the one supplied. Follows the ISO 8601 formatting standard.",
-        "required" : false,
+        "required" : true,
         "schema" : {
           "type" : "string"
         }
@@ -1413,6 +1413,22 @@
         } ],
         "parameters" : [ {
           "$ref" : "#/components/parameters/token"
+        }, {
+          "name" : "roomid",
+          "in" : "query",
+          "description" : "The room ID (not to be confused with the roomname).",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "siteid",
+          "in" : "query",
+          "description" : "Every room is inside a site (building). All sites have IDs.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1477,7 +1493,7 @@
         }
       }
     },
-    "/search" : {
+    "/search/people" : {
       "get" : {
         "summary" : "Returns matching people and information about them.",
         "security" : [ {
