@@ -16,7 +16,7 @@ jobs:
     - name: Install packages for generation
       run: npm install -g @openapitools/openapi-generator-cli
     - name: Create open api generated folder
-      run: openapi-generator generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c npm-config.json
+      run: openapi-generator generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c config/npm-config.json
     - name: Install packages for the folder
       run: |
         cd ./@uclapi/sdk
