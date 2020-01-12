@@ -1,6 +1,6 @@
 {
 	"projectName" : "@uclapi/sdk",
-	"projectVersion" : "1.0.4",
+	"projectVersion" : "1.0.5",
 	"moduleName" : "uclapi",
 	"shouldGenerate" : "true"
 }
