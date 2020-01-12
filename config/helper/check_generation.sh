@@ -1,9 +1,9 @@
 #!/bin/bash
 content=$(echo cat -s "config/npm-config.json") 
-shouldGenerate=$(echo jq -r '.shouldGenerate' <<< "${content}") 
+shouldGenerate=$(jq -r '.shouldGenerate' <<< "${content}") 
 echo ${shouldGenerate}
 
-if [ ${shouldGenerate} ==: 'true' ]
+if [ "$shouldGenerate" == 'true' ]
 then
 	echo "New version being generated..."
 else
