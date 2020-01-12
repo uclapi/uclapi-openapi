@@ -1417,7 +1417,7 @@
           "name" : "roomid",
           "in" : "query",
           "description" : "The room ID (not to be confused with the roomname).",
-          "required" : false,
+          "required" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1425,7 +1425,7 @@
           "name" : "siteid",
           "in" : "query",
           "description" : "Every room is inside a site (building). All sites have IDs.",
-          "required" : false,
+          "required" : true,
           "schema" : {
             "type" : "string"
           }
