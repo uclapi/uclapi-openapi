@@ -14,7 +14,7 @@ jobs:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
     - name: Check whether this is a new version
-      run: sh "bash ./config/helper/check_generation.sh"
+      run: ./config/helper/check_generation.sh
     - name: Install packages for generation
       run: npm install -g @openapitools/openapi-generator-cli
     - name: Create open api generated folder
