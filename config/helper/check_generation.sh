@@ -1,6 +1,5 @@
 #!/bin/bash
-content=$(cat -s "config/npm-config.json") 
-shouldGenerate=$( echo jq -r '.shouldGenerate' <<< "${content}" ) 
+shouldGenerate=$( cat -s "config/npm-config.json" |  jq -r '.shouldGenerate' ) 
 echo ${shouldGenerate}
 
 if [ "$shouldGenerate" == 'true' ]
