@@ -9,6 +9,6 @@
   "author": "UCL API",
   "license": "ISC",
   "dependencies": {
-    "@uclapi/sdk": "^1.0.2"
+    "@uclapi/sdk": "^1.0.5"
   }
 }
