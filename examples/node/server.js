@@ -1,12 +1,15 @@
-var uclapi = require('@uclapi/sdk');
+const uclapi = require('@uclapi/sdk');
+const dotenv = require('dotenv');
  
+dotenv.config();
+
 var api = new uclapi.DefaultApi()
 
 var clientSecret = "clientSecret_example"; // {String} Client secret of the authenticating app
 var clientId = "clientId_example"; // {String} Client ID of the authenticating app.
 var code = "code_example"; // {String} Secret code obtained from the authorise endpoint.
 
-var token = "";
+var token = process.env.UCLAPI_API_KEY;
 
 var failedTests = 0;
 var passedTests = 0;
