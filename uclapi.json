@@ -87,7 +87,7 @@
         "name" : "start_datetime",
         "in" : "query",
         "description" : "Start datetime of the booking. Returns bookings with a start_datetime after the one supplied. Follows the ISO 8601 formatting standard.",
-        "required" : true,
+        "required" : false,
         "schema" : {
           "type" : "string"
         }
@@ -96,7 +96,7 @@
         "name" : "end_datetime",
         "in" : "query",
         "description" : "End datetime of the booking. Returns bookings with an end_datetime before the one supplied. Follows the ISO 8601 formatting standard.",
-        "required" : true,
+        "required" : false,
         "schema" : {
           "type" : "string"
         }
@@ -248,6 +248,107 @@
           },
           "department_name" : {
             "type" : "string"
+          }
+        }
+      },
+      "module_data_courses_modules" : {
+        "properties" : {
+          "module_id" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "instances" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/instance"
+            }
+          }
+        }
+      },
+      "instance" : {
+        "properties" : {
+          "full_module_id" : {
+            "type" : "string"
+          },
+          "class_size" : {
+            "type" : "number"
+          },
+          "delivery" : {
+            "$ref" : "#/components/schemas/delivery"
+          },
+          "periods" : {
+            "$ref" : "#/components/schemas/period"
+          },
+          "instance_code" : {
+            "type" : "string"
+          }
+        }
+      },
+      "delivery" : {
+        "properties" : {
+          "fheq_level" : {
+            "type" : "number"
+          },
+          "is_undergraduate" : {
+            "type" : "boolean"
+          },
+          "student_type" : {
+            "type" : "string"
+          }
+        }
+      },
+      "period" : {
+        "properties" : {
+          "teaching_periods" : {
+            "$ref" : "#/components/schemas/teaching_periods"
+          },
+          "year_long" : {
+            "type" : "boolean"
+          },
+          "lsr" : {
+            "type" : "boolean"
+          },
+          "summer_school" : {
+            "$ref" : "#/components/schemas/summer_school"
+          }
+        }
+      },
+      "teaching_periods" : {
+        "properties" : {
+          "term_1" : {
+            "type" : "boolean"
+          },
+          "term_2" : {
+            "type" : "boolean"
+          },
+          "term_3" : {
+            "type" : "boolean"
+          },
+          "term_1_next_year" : {
+            "type" : "boolean"
+          },
+          "summer" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "summer_school" : {
+        "properties" : {
+          "is_summer_school" : {
+            "type" : "boolean"
+          },
+          "sessions" : {
+            "type" : "object",
+            "properties" : {
+              "session_1" : {
+                "type" : "boolean"
+              },
+              "session_2" : {
+                "type" : "boolean"
+              }
+            }
           }
         }
       },
@@ -1168,9 +1269,9 @@
                       "type" : "boolean"
                     },
                     "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/module"
+                      "type" : "object",
+                      "additionalProperties" : {
+                        "$ref" : "#/components/schemas/module_data_courses_modules"
                       }
                     }
                   }
@@ -1464,9 +1565,21 @@
         "parameters" : [ {
           "$ref" : "#/components/parameters/token"
         }, {
-          "$ref" : "#/components/parameters/start_datetime"
+          "name" : "start_datetime",
+          "in" : "query",
+          "description" : "Start datetime of the booking. Returns bookings with a start_datetime after the one supplied. Follows the ISO 8601 formatting standard.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
         }, {
-          "$ref" : "#/components/parameters/end_datetime"
+          "name" : "end_datetime",
+          "in" : "query",
+          "description" : "End datetime of the booking. Returns bookings with an end_datetime before the one supplied. Follows the ISO 8601 formatting standard.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
