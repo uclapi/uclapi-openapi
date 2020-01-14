@@ -1081,9 +1081,9 @@
                       "type" : "boolean"
                     },
                     "modules" : {
-                      "type" : "array",
-                      "items" : {
-                        "$ref" : "#/components/schemas/module"
+                      "type" : "object",
+                      "additionalProperties" : {
+                        "$ref" : "#/components/schemas/module_data_courses_modules"
                       }
                     }
                   }
