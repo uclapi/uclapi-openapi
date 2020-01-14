@@ -20,8 +20,8 @@ var callback = function(error, data, response) {
     console.error(error);
   } else {  
     passedTests ++;
-    console.log(response.req._header.split('?')[0]);
   }
+  console.log(response.req._header.split('?')[0]);
   console.log("Failed: " + failedTests + " Passed: " + passedTests
    + " (" + (passedTests) + " / " + (passedTests + failedTests) + ")")
 };
