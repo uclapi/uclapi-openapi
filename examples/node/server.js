@@ -17,54 +17,55 @@ var passedTests = 0;
 var callback = function(error, data, response) {
   if (error) {
     failedTests ++;
-    // console.error(error);
+    console.error(error);
   } else {  
     passedTests ++;
-    //console.log(data);
+    console.log(response.req._header.split('?')[0]);
   }
   console.log("Failed: " + failedTests + " Passed: " + passedTests
    + " (" + (passedTests) + " / " + (passedTests + failedTests) + ")")
 };
 console.log("Calling the uclapi...")
-// People search (token, query, callback)
+// 1. People search (token, query, callback) Y
 api.searchPeopleGet(
     token,
-    "Jane",
+    "Harry Liversedge",
     callback
 );
-// Desktop Availability (token, callback)
+//2. Desktop Availability (token, callback) Y
 api.resourcesDesktopsGet(
     token,
     callback
 );
-// Room Bookings Get Bookings (token, optional, callback)
+// 3. Room Bookings Get Bookings (token, optional, callback) 
 api.roombookingsBookingsGet(
     token,
     {
       roomname: "Torrington (1-19) 433",
       roomid: "433",
       start_datetime: "2020-12-01T09:00:00+00:00",
-    end_datetime: "2020-12-01T09:30:00+00:00",
-    date: "20200112",
+      end_datetime: "2020-12-01T09:30:00+00:00",
+      date: "20200112",
       siteid: "086",
-  },
+    },
     callback
 );
-// Room Bookings Get Equipment (token, roomid, siteid, callback)
+// 4. Room Bookings Get Equipment (token, roomid, siteid, callback) Y
 api.roombookingsEquipmentGet(
   token,
   "433",
   "086",
   callback
 )
-// Room Bookings Get Free Rooms (token, start_datetime, end_datetime, callback)
+// 5. Room Bookings Get Free Rooms 
+// (token, start_datetime, end_datetime, callback) Y
 api.roombookingsFreeroomsGet(
   token,
   "2020-12-01T09:00:00+00:00",
   "2020-12-01T09:30:00+00:00",
   callback
 )
-// Room Bookings Rooms Get (token, optional, callback)
+// 6. Room Bookings Rooms Get (token, optional, callback) Y
 api.roombookingsRoomsGet(
   token,
     {
@@ -75,6 +76,45 @@ api.roombookingsRoomsGet(
       classification: "SS",
       capacity: "55"
   },
+  callback
+)
+// 7. Timetable By Modules (token, modules, callback) Y
+api.timetableBymoduleGet(
+  token,
+  "PHAS0041, STAT0007",
+  callback
+)
+// 8. Timetable Get Departments (token, callback) Y
+api.timetableDataDepartmentsGet(
+  token,
+  callback
+)
+// 9. Timetable Get Module Taught On A Given Course 
+// (token, course, optional, callback)
+api.timetableDataCoursesModulesGet(
+  token,
+  "UMNCOMSMAT05",
+  {
+    term_1: true,
+    term_2: true,
+    term_3: true,
+    term_1_next_year: true,
+    summer: true,
+    year_long: true,
+    lsr: true,
+    is_summer_school: false,
+    session_1: true,
+    session_2: true,
+    is_undergraduate: true,
+    only_available: true,
+    only_compulsory: true
+  },
+  callback
+)
+// 10. Timetable Get Moudles Taught By Departmnet (token, department, callback)
+api.timetableDataModulesGet(
+  token,
+  "COMPS_ENG",
   callback
 )
 // ALL ENDPOINTS USING OAUTH TO ADD...
