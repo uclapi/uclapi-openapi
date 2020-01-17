@@ -4,7 +4,7 @@
   "description": "A set of examples on how to use the uclapi with the node package",
   "main": "server.js",
   "scripts": {
-    "test": "node server.js"
+    "test": "node examples.js"
   },
   "author": "UCL API",
   "license": "ISC",
