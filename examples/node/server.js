@@ -15,15 +15,17 @@ var failedTests = 0;
 var passedTests = 0;
 
 var callback = function(error, data, response) {
+  var passed = true;
+
   if (error) {
     failedTests ++;
-    console.error(error);
+    passed = false;
+    console.error(error.response.body);
   } else {  
     passedTests ++;
   }
-  console.log(response.req._header.split('?')[0]);
-  console.log("Failed: " + failedTests + " Passed: " + passedTests
-   + " (" + (passedTests) + " / " + (passedTests + failedTests) + ")")
+  console.log((passed ? "Passed: " : "Failed: ") + response.req._header.split('?')[0]);
+  console.log("(" + (passedTests) + " / " + (passedTests + failedTests) + ")")
 };
 console.log("Calling the uclapi...")
 // 1. People search (token, query, callback) Y
@@ -115,6 +117,70 @@ api.timetableDataCoursesModulesGet(
 api.timetableDataModulesGet(
   token,
   "COMPS_ENG",
+  callback
+)
+// 11. Workspaces Images Map Get (token, image_id, options, callback)
+api.workspacesImagesMapGet(
+  token,
+  "48",
+  {
+    image_format: "base64"
+  },
+  callback
+)
+// 12. Workspaces Get Live Image Map (token, survey id, map_id, optional, callback)
+api.workspacesImagesMapLiveGet(
+  token,
+  "48",
+  "79",
+  {
+    image_scale: "0.02",
+    circle_radius: "128",
+    absent_colour: "#016810",
+    occupied_colour: "#B60202",
+  },
+  callback
+)
+// 13. Workspace Sensors Averages Time Get (token, days, optional, callback)
+api.workspacesSensorsAveragesTimeGet(
+  token,
+  "7",
+  {
+    survey_ids: "79,72",
+    survey_filter: "student"
+  }, 
+  callback
+)
+// 14. Workspaces Sensors Get (token, survey id, callback)
+api.workspacesSensorsGet(
+  token,
+  "79",
+  {
+    return_states: false
+  },
+  callback
+)
+// 15. Workspaces Get Last Update Time (token, survey id, callback)
+api.workspacesSensorsLastupdatedGet(
+  token, 
+  "79",
+  callback
+)
+// 16. Workspaces Get Sensor Summary (token, optional, callback)
+api.workspacesSensorsSummaryGet(
+  token,
+  {
+    survey_ids: "46, 45",
+    survey_filter: "student" 
+  },
+  callback  
+)
+// 17. Workspaces Get Surveys (token, optional, callback)
+api.workspacesSurveysGet(
+  token, 
+  {
+    survey_filter: "student"
+  },
   callback
 )
 // ALL ENDPOINTS USING OAUTH TO ADD...
