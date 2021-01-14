@@ -3357,9 +3357,6 @@
       "get" : {
         "summary" : "Gets all services and their popularity",
         "tags" : [ "Analytics" ],
-        "security" : [ {
-          "OAuthSecurity" : [ ]
-        } ],
         "responses" : {
           "200" : {
             "description" : "Success",
@@ -3398,9 +3395,6 @@
       "get" : {
         "summary" : "Gets all methods for a given service and their popularity",
         "tags" : [ "Analytics" ],
-        "security" : [ {
-          "OAuthSecurity" : [ ]
-        } ],
         "parameters" : [ {
           "name" : "service",
           "in" : "query",
