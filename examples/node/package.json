@@ -1,13 +1,13 @@
 {
   "name": "uclapi-node-examples",
   "version": "1.0.0",
-  "description": "A set of examples on how to use the uclapi with the node package",
-  "main": "server.js",
+  "description": "A set of examples on how to use the UCL API SDK with Node.js",
+  "main": "examples.js.js",
   "scripts": {
     "test": "node examples.js"
   },
   "author": "UCL API",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@uclapi/sdk": "^1.0.7",
     "dotenv": "^8.2.0"

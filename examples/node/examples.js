@@ -1,188 +1,83 @@
-const uclapi = require('@uclapi/sdk');
-const dotenv = require('dotenv');
- 
+const uclapi = require("./@sdk/dist");
+const dotenv = require("dotenv");
 dotenv.config();
 
-var api = new uclapi.DefaultApi()
+/*
+ * Send the user to https://uclapi.com/oauth/authorize?client_id=CLIENT_ID&state=STATE
+ * to receive your `CODE`
+ */
+const clientSecret = process.env.UCLAPI_CLIENT_SECRET; // {String} Client secret of the authenticating app
+const clientId = "clientId_example"; // {String} Client ID of the authenticating app.
 
-var clientSecret = "clientSecret_example"; // {String} Client secret of the authenticating app
-var clientId = "clientId_example"; // {String} Client ID of the authenticating app.
-var code = "code_example"; // {String} Secret code obtained from the authorise endpoint.
+/* Get your token by GETting
+ * https://uclapi.com/oauth/token?code=CODE&client_id=CLIENT_ID&client_secret=CLIENT_SECRET
+ */
+const token = process.env.UCLAPI_API_KEY;
 
-var token = process.env.UCLAPI_API_KEY;
+// Set your received OAuth2 access token
+uclapi.ApiClient.instance.authentications.OAuthToken.apiKey = token;
 
-var failedTests = 0;
-var passedTests = 0;
+let failedTests = 0;
+let passedTests = 0;
 
-var callback = function(error, data, response) {
-  var passed = true;
+const callback = function (error, data, response) {
+  let passed = true;
 
   if (error) {
-    failedTests ++;
+    failedTests++;
     passed = false;
     console.error(error.response.body);
-  } else {  
-    passedTests ++;
+  } else {
+    passedTests++;
   }
-  console.log((passed ? "Passed: " : "Failed: ") + response.req._header.split('?')[0]);
-  console.log("(" + (passedTests) + " / " + (passedTests + failedTests) + ")")
-};
-console.log("Calling the uclapi...")
-// 1. People search (token, query, callback) Y
-api.searchPeopleGet(
-    token,
-    "Harry Liversedge",
-    callback
-);
-//2. Desktop Availability (token, callback) Y
-api.resourcesDesktopsGet(
-    token,
-    callback
-);
-// 3. Room Bookings Get Bookings (token, optional, callback) 
-api.roombookingsBookingsGet(
-    token,
-    {
-      roomname: "Torrington (1-19) 433",
-      roomid: "433",
-      start_datetime: "2020-12-01T09:00:00+00:00",
-      end_datetime: "2020-12-01T09:30:00+00:00",
-      date: "20200112",
-      siteid: "086",
-    },
-    callback
-);
-// 4. Room Bookings Get Equipment (token, roomid, siteid, callback) Y
-api.roombookingsEquipmentGet(
-  token,
-  "433",
-  "086",
-  callback
-)
-// 5. Room Bookings Get Free Rooms 
-// (token, start_datetime, end_datetime, callback) Y
-api.roombookingsFreeroomsGet(
-  token,
-  "2020-12-01T09:00:00+00:00",
-  "2020-12-01T09:30:00+00:00",
-  callback
-)
-// 6. Room Bookings Rooms Get (token, optional, callback) Y
-api.roombookingsRoomsGet(
-  token,
-    {
-      roomname: "Torrington (1-19) 433",
-      roomid: "433",
-      siteid: "086",
-      sitename: "Torrington Place, 1-19",
-      classification: "SS",
-      capacity: "55"
-  },
-  callback
-)
-// 7. Timetable By Modules (token, modules, callback) Y
-api.timetableBymoduleGet(
-  token,
-  "PHAS0041, STAT0007",
-  callback
-)
-// 8. Timetable Get Departments (token, callback) Y
-api.timetableDataDepartmentsGet(
-  token,
-  callback
-)
-// 9. Timetable Get Module Taught On A Given Course 
-// (token, course, optional, callback)
-api.timetableDataCoursesModulesGet(
-  token,
-  "UMNCOMSMAT05",
-  {
-    term_1: true,
-    term_2: true,
-    term_3: true,
-    term_1_next_year: true,
-    summer: true,
-    year_long: true,
-    lsr: true,
-    is_summer_school: false,
-    session_1: true,
-    session_2: true,
-    is_undergraduate: true,
-    only_available: true,
-    only_compulsory: true
-  },
-  callback
-)
-// 10. Timetable Get Moudles Taught By Departmnet (token, department, callback)
-api.timetableDataModulesGet(
-  token,
-  "COMPS_ENG",
-  callback
-)
-// 11. Workspaces Images Map Get (token, image_id, options, callback)
-api.workspacesImagesMapGet(
-  token,
-  "48",
-  {
-    image_format: "base64"
-  },
-  callback
-)
-// 12. Workspaces Get Live Image Map (token, survey id, map_id, optional, callback)
-api.workspacesImagesMapLiveGet(
-  token,
-  "48",
-  "79",
-  {
-    image_scale: "0.02",
-    circle_radius: "128",
-    absent_colour: "#016810",
-    occupied_colour: "#B60202",
-  },
-  callback
-)
-// 13. Workspace Sensors Averages Time Get (token, days, optional, callback)
-api.workspacesSensorsAveragesTimeGet(
-  token,
-  "7",
-  {
-    survey_ids: "79,72",
-    survey_filter: "student"
-  }, 
-  callback
-)
-// 14. Workspaces Sensors Get (token, survey id, callback)
-api.workspacesSensorsGet(
-  token,
-  "79",
-  {
-    return_states: false
-  },
-  callback
-)
-// 15. Workspaces Get Last Update Time (token, survey id, callback)
-api.workspacesSensorsLastupdatedGet(
-  token, 
-  "79",
-  callback
-)
-// 16. Workspaces Get Sensor Summary (token, optional, callback)
-api.workspacesSensorsSummaryGet(
-  token,
-  {
-    survey_ids: "46, 45",
-    survey_filter: "student" 
-  },
-  callback  
-)
-// 17. Workspaces Get Surveys (token, optional, callback)
-api.workspacesSurveysGet(
-  token, 
-  {
-    survey_filter: "student"
-  },
-  callback
-)
-// ALL ENDPOINTS USING OAUTH TO ADD...
 
-console.log("End of code.")
+  console.log(
+    (passed ? "Passed: " : "Failed: ") + response.req._header.split("\n")[0].split("?")[0]
+  );
+  console.log("(" + passedTests + " / " + (passedTests + failedTests) + ")");
+};
+
+console.log("Running examples...");
+
+// 1. Timetable API examples
+const timetable = new uclapi.TimetableApi();
+timetable.timetablePersonalGet(clientSecret, {}, callback);
+timetable.timetableBymoduleGet('COMP0016,STAT0007', {}, callback);
+timetable.timetableDataDepartmentsGet(callback);
+timetable.timetableDataModulesGet('COMPS_ENG', callback);
+timetable.timetableDataCoursesGet('COMPS_ENG', callback);
+timetable.timetableDataCoursesModulesGet('UMNCOMSMAT05', {}, callback);
+
+// 2. Room Bookings API examples
+const bookings = new uclapi.RoomBookingsApi();
+bookings.roombookingsRoomsGet({}, callback);
+bookings.roombookingsBookingsGet({}, callback);
+bookings.roombookingsEquipmentGet({}, callback);
+bookings.roombookingsFreeroomsGet({}, callback);
+
+// 3. Staff Search API examples
+const search = new uclapi.SearchApi();
+search.searchPeopleGet("Hirsch", callback);
+
+// 4. Resources API examples
+const resources = new uclapi.ResourcesApi();
+resources.resourcesDesktopsGet(callback);
+
+// 5. Workspaces API examples
+const workspaces = new uclapi.WorkspacesApi();
+workspaces.workspacesSurveysGet({}, callback);
+workspaces.workspacesSensorsGet(79, { return_states: false }, callback);
+workspaces.workspacesSensorsAveragesTimeGet(1, {}, callback);
+workspaces.workspacesSensorsLastupdatedGet(79, callback);
+workspaces.workspacesSensorsSummaryGet({ survey_filter: 'student' }, callback);
+workspaces.workspacesImagesMapGet(48, { image_format: 'base64' }, callback);
+workspaces.workspacesImagesMapLiveGet(0, 1, {}, callback);
+
+// 6. Analytics API examples
+const analytics = new uclapi.AnalyticsApi();
+analytics.dashboardApiAnalyticsTotalGet(callback);
+analytics.dashboardApiAnalyticsQuotaGet(callback);
+analytics.dashboardApiAnalyticsServicesGet(callback);
+analytics.dashboardApiAnalyticsMethodsGet({ service: "rooms" }, callback);
+analytics.dashboardApiAnalyticsOauthTotalGet({ end_date: '2021-01-14' }, callback);
+analytics.dashboardApiAnalyticsOauthTotalByDeptGet(callback);
