@@ -2,7 +2,7 @@
   "name": "uclapi-node-examples",
   "version": "1.0.0",
   "description": "A set of examples on how to use the UCL API SDK with Node.js",
-  "main": "examples.js.js",
+  "main": "examples.js",
   "scripts": {
     "test": "node examples.js"
   },
