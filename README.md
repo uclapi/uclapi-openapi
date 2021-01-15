@@ -1,13 +1,11 @@
-# uclapi-openapi
+# UCL API OpenAPI
 
-## What this is
-
-This is an open api definition of the uclapi (uclapi.com). This repository should not be edited except when changes are made to it by swagger.
+This repository contains the OpenAPI specification for the [UCL API](https://uclapi.com). The [`uclapi.json`](./uclapi.json) specification file **should not** be manually edited unless via Swagger Hub.
 
 ## The aim
 
-Since this repo is set up to track the changes made in swagger it means that we can set up future repositories for python, node, ... to generate updates to the sdk when they see changes made here
+The aim is to set up repositories containing various client SDKs in different languages, automatically generated and maintained via our OpenAPI specification.
 
 ## Current progress on auto updates
 
-Node automatically builds when you update swagger but due to constraints of swagger you manually have to version the build in the config file and set shouldGenerate to true.
+A JavaScript client SDK is automatically generated on pushed to `master`. These are then automatically pushed to the [`uclapi-js-sdk`](https://github.com/uclapi/uclapi-js-sdk) repository on GitHub.
