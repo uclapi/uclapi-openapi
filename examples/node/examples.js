@@ -1,6 +1,5 @@
-const uclapi = require("./@sdk/dist");
-const dotenv = require("dotenv");
-dotenv.config();
+const uclapi = require("@uclapi/sdk");
+require("dotenv").config();
 
 /*
  * Send the user to https://uclapi.com/oauth/authorize?client_id=CLIENT_ID&state=STATE
