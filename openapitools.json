@@ -11,7 +11,8 @@
         "additionalProperties": {
           "projectName": "@uclapi/sdk",
           "projectVersion": "1.0.7",
-          "moduleName": "uclapi"
+          "moduleName": "uclapi",
+          "projectDescription": "UCL API JavaScript SDK"
         }
       }
     }
