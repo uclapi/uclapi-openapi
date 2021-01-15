@@ -39,7 +39,11 @@ jobs:
         cd ./@uclapi/sdk
         npm run test
     - name: Push JS SDK to GitHub repo
+      env:
+        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
       run: |
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${DEPLOY_KEY}"
         cp -r ./@uclapi/sdk/* uclapi-js-sdk
         cd ./uclapi-js-sdk
         git config --global user.name "Shubham Jain"
