@@ -1,8 +1,10 @@
 # UCL API JavaScript SDK
 
+The UCL API JavaScript SDK can be found at [`uclapi-js-sdk`](https://github.com/uclapi/uclapi-js-sdk) -- installation and usage instructions can be found there.
+
 ## Installation
 
-This SDK provides an easy method for you to use the UCL API via a package installed from npm.
+The SDK provides an easy method for you to use the UCL API via a package installed from npm.
 
 This takes away the pain of having to worry about the actual HTTP requests, and just get straight into coding.
 
