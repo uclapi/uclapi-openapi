@@ -15,35 +15,23 @@ jobs:
       with:
         node-version: '10.x'
         registry-url: 'https://registry.npmjs.org'
+    - uses: webfactory/ssh-agent@v0.4.1
+      with:
+          ssh-private-key: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
     - name: Install packages for generation
       run: npm install -g @openapitools/openapi-generator-cli
     - name: Clone JS SDK Repo
-      env:
-        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${DEPLOY_KEY}"
-        git clone git@github.com:uclapi/uclapi-js-sdk.git
-    - name: Create open api generated folder
+      run: git clone git@github.com:uclapi/uclapi-js-sdk.git
+    - name: Generate SDK source via openapi-generator
       run: openapi-generator-cli generate
-    - name: Install packages for the folder
+    - name: Install dependencies for generated SDK
+      run: cd ./@uclapi/sdk && npm install
+    - name: Build generated SDK
+      run: cd ./@uclapi/sdk && npm run build
+    - name: Test generated SDK
+      run: cd ./@uclapi/sdk && npm run test
+    - name: Push SDK to GitHub repo
       run: |
-        cd ./@uclapi/sdk
-        npm install
-    - name: Build the packages for the folder
-      run: |
-        cd ./@uclapi/sdk
-        npm run build
-    - name: Run test on the packages
-      run: |
-        cd ./@uclapi/sdk
-        npm run test
-    - name: Push JS SDK to GitHub repo
-      env:
-        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
-      run: |
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${DEPLOY_KEY}"
         cp -rT ./@uclapi/sdk uclapi-js-sdk
         cd uclapi-js-sdk
         git config --global user.name "Shubham Jain"
