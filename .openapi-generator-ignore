@@ -1,0 +1,5 @@
+mocha.opts
+travis.yml
+.openapi-generator
+test
+node_modules

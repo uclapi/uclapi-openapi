@@ -1,0 +1,41 @@
+name: js-sdk-push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+        registry-url: 'https://registry.npmjs.org'
+    - name: Install packages for generation
+      run: npm install -g @openapitools/openapi-generator-cli
+    - name: Create open api generated folder
+      run: openapi-generator-cli generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c config/npm-config.json --ignore-file-override=./.openapi-generator-ignore
+    - name: Install packages for the folder
+      run: |
+        cd ./@uclapi/sdk
+        npm install
+    - name: Build the packages for the folder
+      run: |
+        cd ./@uclapi/sdk
+        npm run build
+    - name: Run test on the packages
+      run: |
+        cd ./@uclapi/sdk
+        npm run test
+    - name: Push JS SDK to GitHub repo
+      env:
+        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
+      run: |
+        cd ./@uclapi/sdk
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${DEPLOY_KEY}"
+        ./git_push.sh uclapi uclapi-js-sdk "Update SDK" "github.com"
