@@ -30,7 +30,7 @@ npm install {{{projectName}}} --save
 If you want to use the SDK via this GitHub repository, then install it via:
 
 ```shell
-    npm install uclapi/uclapi-js-sdk --save
+npm install uclapi/uclapi-js-sdk --save
 ```
 
 ### For browser
@@ -66,47 +66,46 @@ module: {
 Please follow the [installation](#installation) instruction and execute the following JS code:
 
 ```javascript
-var {{{moduleName}}} = require('{{{projectName}}}');
+const {{{moduleName}}} = require('{{{projectName}}}');
 {{#apiInfo}}{{#apis}}{{#-first}}{{#operations}}{{#operation}}{{#-first}}
 {{#hasAuthMethods}}
-var defaultClient = {{{moduleName}}}.ApiClient.instance;
+const defaultClient = {{{moduleName}}}.ApiClient.instance;
 {{#authMethods}}
 {{#isBasic}}
 {{#isBasicBasic}}
 // Configure HTTP basic authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
+const {{{name}}} = defaultClient.authentications['{{{name}}}'];
 {{{name}}}.username = 'YOUR USERNAME'
 {{{name}}}.password = 'YOUR PASSWORD'
 {{/isBasicBasic}}
 {{#isBasicBearer}}
 // Configure Bearer{{#bearerFormat}} ({{{.}}}){{/bearerFormat}} access token for authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
+const {{{name}}} = defaultClient.authentications['{{{name}}}'];
 {{{name}}}.accessToken = "YOUR ACCESS TOKEN"
 {{/isBasicBearer}}
 {{/isBasic}}
 {{#isApiKey}}
 // Configure API key authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
+const {{{name}}} = defaultClient.authentications['{{{name}}}'];
 {{{name}}}.apiKey = "YOUR API KEY"
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //{{{name}}}.apiKeyPrefix['{{{keyParamName}}}'] = "Token"
 {{/isApiKey}}
 {{#isOAuth}}
 // Configure OAuth2 access token for authorization: {{{name}}}
-var {{{name}}} = defaultClient.authentications['{{{name}}}'];
+const {{{name}}} = defaultClient.authentications['{{{name}}}'];
 {{{name}}}.accessToken = "YOUR ACCESS TOKEN"
 {{/isOAuth}}
 {{/authMethods}}
 {{/hasAuthMethods}}
-
-var api = new {{{moduleName}}}.{{{classname}}}()
+const api = new {{{moduleName}}}.{{{classname}}}()
 {{#hasParams}}
 {{#requiredParams}}
-var {{{paramName}}} = {{{example}}}; // {{=< >=}}{<&dataType>}<={{ }}=> {{{description}}}
+const {{{paramName}}} = {{{example}}}; // {{=< >=}}{<&dataType>}<={{ }}=> {{{description}}}
 {{/requiredParams}}
 {{#optionalParams}}
 {{#-first}}
-var opts = {
+const opts = {
 {{/-first}}
   '{{{paramName}}}': {{{example}}}{{^-last}},{{/-last}} // {{=< >=}}{<&dataType>}<={{ }}=> {{{description}}}
 {{#-last}}
@@ -122,11 +121,11 @@ api.{{{operationId}}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{
 });
 
 {{/usePromises}}{{^usePromises}}
-var callback = function(error, data, response) {
+const callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    {{#returnType}}console.log('API called successfully. Returned data: ' + data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
+    {{#returnType}}console.log('API called successfully. Returned data: ', data);{{/returnType}}{{^returnType}}console.log('API called successfully.');{{/returnType}}
   }
 };
 api.{{{operationId}}}({{#requiredParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/requiredParams}}{{#optionalParams}}{{#-last}}{{#hasRequiredParams}}, {{/hasRequiredParams}}opts{{/-last}}{{/optionalParams}}{{#hasParams}}, {{/hasParams}}callback);

@@ -8,6 +8,7 @@
         "generatorName": "javascript",
         "output": "#{cwd}/@uclapi/sdk",
         "glob": "uclapi.json",
+        "templateDir": "#{cwd}/templates",
         "additionalProperties": {
           "projectName": "@uclapi/sdk",
           "projectVersion": "1.0.7",
