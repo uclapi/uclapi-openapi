@@ -17,6 +17,13 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - name: Install packages for generation
       run: npm install -g @openapitools/openapi-generator-cli
+    - name: Clone JS SDK Repo
+      env:
+        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
+      run: |
+        eval "$(ssh-agent -s)"
+        ssh-add - <<< "${DEPLOY_KEY}"
+        git clone https://github.com/uclapi/uclapi-js-sdk.git
     - name: Create open api generated folder
       run: openapi-generator-cli generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c config/npm-config.json --ignore-file-override=./.openapi-generator-ignore
     - name: Install packages for the folder
@@ -32,18 +39,10 @@ jobs:
         cd ./@uclapi/sdk
         npm run test
     - name: Push JS SDK to GitHub repo
-      env:
-        DEPLOY_KEY: ${{ secrets.JS_SDK_REPO_DEPLOY_PRIVATE_KEY }}
       run: |
-        cd ./@uclapi/sdk
-        eval "$(ssh-agent -s)"
-        ssh-add - <<< "${DEPLOY_KEY}"
-        git config --global init.defaultBranch main
+        cp ./@uclapi/sdk/* uclapi-js-sdk
         git config --global user.name "Shubham Jain"
         git config --global user.email "shubham@sjain.dev"
-        git init
-        git remote add origin https://github.com/uclapi/uclapi-js-sdk.git
-        git pull origin main
         git add .
         git commit -m "Update SDK"
         git push origin main
