@@ -23,7 +23,7 @@ jobs:
       run: |
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${DEPLOY_KEY}"
-        git clone https://github.com/uclapi/uclapi-js-sdk.git
+        git clone git@github.com:uclapi/uclapi-js-sdk.git
     - name: Create open api generated folder
       run: openapi-generator-cli generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c config/npm-config.json --ignore-file-override=./.openapi-generator-ignore
     - name: Install packages for the folder
@@ -40,7 +40,8 @@ jobs:
         npm run test
     - name: Push JS SDK to GitHub repo
       run: |
-        cp ./@uclapi/sdk/* uclapi-js-sdk
+        cp -r ./@uclapi/sdk/* uclapi-js-sdk
+        cd ./uclapi-js-sdk
         git config --global user.name "Shubham Jain"
         git config --global user.email "shubham@sjain.dev"
         git add .
