@@ -25,7 +25,7 @@ jobs:
         ssh-add - <<< "${DEPLOY_KEY}"
         git clone git@github.com:uclapi/uclapi-js-sdk.git
     - name: Create open api generated folder
-      run: openapi-generator-cli generate -i uclapi.json -g javascript -o ./@uclapi/sdk -c config/npm-config.json --ignore-file-override=./.openapi-generator-ignore
+      run: openapi-generator-cli generate
     - name: Install packages for the folder
       run: |
         cd ./@uclapi/sdk

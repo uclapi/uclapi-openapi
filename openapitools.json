@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "5.0.0",
+    "generators": {
+      "javascript": {
+        "generatorName": "javascript",
+        "output": "#{cwd}/@uclapi/sdk",
+        "glob": "uclapi.json",
+        "additionalProperties": {
+          "projectName": "@uclapi/sdk",
+          "projectVersion": "1.0.7",
+          "moduleName": "uclapi"
+        }
+      }
+    }
+  }
+}
