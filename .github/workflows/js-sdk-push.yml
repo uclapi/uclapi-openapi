@@ -44,7 +44,7 @@ jobs:
       run: |
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${DEPLOY_KEY}"
-        cp -r ./@uclapi/sdk/* uclapi-js-sdk
+        cp -rT ./@uclapi/sdk uclapi-js-sdk
         cd uclapi-js-sdk
         git config --global user.name "Shubham Jain"
         git config --global user.email "shubham@sjain.dev"
