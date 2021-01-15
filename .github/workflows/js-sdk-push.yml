@@ -38,4 +38,5 @@ jobs:
         cd ./@uclapi/sdk
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${DEPLOY_KEY}"
+        chmod +x ./git_push.sh
         ./git_push.sh uclapi uclapi-js-sdk "Update SDK" "github.com"
