@@ -1,7 +1,0 @@
-dist
-.travis.yml
-node_modules
-git_push.sh
-mocha.opts
-.openapi-generator-ignore
-.openapi-generator
