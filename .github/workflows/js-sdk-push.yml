@@ -39,4 +39,7 @@ jobs:
         eval "$(ssh-agent -s)"
         ssh-add - <<< "${DEPLOY_KEY}"
         chmod +x ./git_push.sh
+        git config --global init.defaultBranch main
+        git config --global user.name "Shubham Jain"
+        git config --global user.email "shubham@sjain.dev"
         ./git_push.sh uclapi uclapi-js-sdk "Update SDK" "github.com"
