@@ -14,4 +14,4 @@ A JavaScript client SDK is automatically generated on pushed to `master`. These 
 
 ### JavaScript (npm)
 
-**NOTE**: To publish the package to npm, you need to update the `version` in the `package.json` of the [`uclapi-js-sdk`](https://github.com/uclapi/uclapi-js-sdk) repository -- this means publishing won't be 100% automatic and can't be done accidentally, and allows for you to decide what the new version number should be (major/minor/patch).
+**NOTE**: To publish the package to npm, you need to update the `generator-cli.generators.javascript.additionalProperties.projectVersion` in the `openapitools.json` file -- this means publishing won't be 100% automatic on-push unless this is updated, and allows for you to decide what the new version number should be (major/minor/patch).

@@ -11,7 +11,7 @@
         "templateDir": "#{cwd}/templates",
         "additionalProperties": {
           "projectName": "@uclapi/sdk",
-          "projectVersion": "1.0.7",
+          "projectVersion": "1.1.0",
           "moduleName": "uclapi",
           "projectDescription": "UCL API JavaScript SDK"
         }
