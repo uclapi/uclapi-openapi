@@ -9,7 +9,7 @@
   "author": "UCL API",
   "license": "MIT",
   "dependencies": {
-    "@uclapi/sdk": "^1.0.7",
+    "@uclapi/sdk": "^1.1.0",
     "dotenv": "^8.2.0"
   }
 }
